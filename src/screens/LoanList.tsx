@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {observer} from 'mobx-react';
+import {DateTime} from 'luxon';
 import {
   Container,
   View,
@@ -17,6 +18,7 @@ import {
 import {useNavigation} from 'react-native-navigation-hooks';
 import {RefreshControl, ScrollView} from 'react-native';
 
+import {DATE_TIME_FORMAT} from '../configs';
 import colors from '../colors';
 import {useStore} from '../store';
 import {LoanStatus} from '../types';
@@ -33,16 +35,12 @@ const useRefresh = () => {
 };
 
 const LoanList = () => {
-  const {push, mergeOptions} = useNavigation();
+  const {push} = useNavigation();
   const {dataStore} = useStore();
   const {onRefresh, refreshing} = useRefresh();
   const createLoanPress = () => {
     push({component: {name: 'SubmitLoan'}});
   };
-
-  useEffect(() => {
-    mergeOptions({topBar: {title: {text: 'Loan list'}}});
-  });
 
   return (
     <Container>
@@ -58,9 +56,9 @@ const LoanList = () => {
           <List>
             {dataStore.loanIds.map((id) => {
               const loan = dataStore.loans.get(id);
-              const dateString = new Date(
+              const dateString = DateTime.fromMillis(
                 loan?.createDate as number,
-              ).toLocaleDateString();
+              ).toFormat(DATE_TIME_FORMAT);
               return (
                 <ListItem
                   key={id}
@@ -70,7 +68,8 @@ const LoanList = () => {
                     })
                   }>
                   <Body>
-                    <Text>{`Amount: ${loan?.amount}, Rate: ${loan?.rate}`}</Text>
+                    <Text>{`Amount: ${loan?.amount}`}</Text>
+                    <Text>{`Period to repay: ${loan?.repaymentSchedule.length} weeks`}</Text>
                     <Text
                       style={textByStatus(
                         loan?.status,
@@ -78,6 +77,19 @@ const LoanList = () => {
                     <Text note>{`Create date: ${dateString}`}</Text>
                   </Body>
                   <Right>
+                    <Button
+                      small
+                      onPress={() =>
+                        push({
+                          component: {
+                            name: 'LoanDetail',
+                            passProps: {loanId: id},
+                          },
+                        })
+                      }>
+                      <Text>{'Detail'}</Text>
+                    </Button>
+                    <View style={{height: 16}} />
                     {(loan?.status === LoanStatus.Approved ||
                       loan?.status === LoanStatus.Repaying) && (
                       <Button

@@ -3,17 +3,26 @@ export enum LoanStatus {
   Approved = 'Approved',
   Repaying = 'Repaying',
   Finished = 'Finished',
-  Overdue = 'Overdue',
 }
 
 export type Loan = {
   id: string;
-  rate: number;
   amount: number;
   createDate: number;
   duaDate?: number;
   status: LoanStatus;
+  repaymentSchedule: Repayment[];
 };
+
+export type Repayment = {
+  doneDate?: number;
+  status: RepaymentStatus;
+};
+
+export enum RepaymentStatus {
+  New = 'New',
+  Done = 'Done',
+}
 
 export type User = {
   id: string;

@@ -6,16 +6,22 @@ import {
   Text,
   Form,
   Label,
-  Input,
+  List,
   Item,
   ListItem,
+  Title,
+  Left,
+  Body,
 } from 'native-base';
+import {DateTime} from 'luxon';
 import {useNavigation} from 'react-native-navigation-hooks';
 import {View} from 'react-native';
 
+import {DATE_TIME_FORMAT} from '../configs';
 import colors from '../colors';
 // import {useLoadingScreen} from './Loading';
 import {useStore} from '../store';
+import { RepaymentStatus } from '../types';
 
 type LoanDataState = {
   loading: boolean;
@@ -36,11 +42,9 @@ const LoanDetail = ({loanId = ''}: LoanDetailProps) => {
     mergeOptions({topBar: {title: {text: 'Loan detail'}}});
   });
 
-  const back = () => pop();
-
   return (
     <Container>
-      <Content style={{flex: 1, padding: 32}}>
+      <Content style={{padding: 32}}>
         <Form>
           <Item>
             <Text>{`Loan ID: ${loan?.id}`}</Text>
@@ -55,13 +59,35 @@ const LoanDetail = ({loanId = ''}: LoanDetailProps) => {
             <Text>{`Status: ${loan?.status}`}</Text>
           </Item>
         </Form>
-        <Button
-          full
-          color={colors.primary}
-          style={{marginTop: 32}}
-          onPress={back}>
-          <Text>{'BACK'}</Text>
-        </Button>
+        <Title style={{marginTop: 32}}>
+          <Text>Repayment schedule</Text>
+        </Title>
+        <List style={{paddingBottom: 64}}>
+          {loan?.repaymentSchedule.map((v, index) => {
+            let timeString;
+            if (v.doneDate) {
+              timeString = DateTime.fromMillis(v.doneDate).toFormat(
+                DATE_TIME_FORMAT,
+              );
+            } else {
+              timeString = 'N/A';
+            }
+            return (
+              <React.Fragment key={index}>
+                <ListItem>
+                  <Body>
+                    <Text note>{`Week ${index + 1}`}</Text>
+                    <Text
+                      note={
+                        v.status === RepaymentStatus.Done
+                      }>{`Repay date:\n${timeString}`}</Text>
+                  </Body>
+                  <Text>{`Status: ${v.status}`}</Text>
+                </ListItem>
+              </React.Fragment>
+            );
+          })}
+        </List>
       </Content>
     </Container>
   );

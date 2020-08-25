@@ -19,7 +19,7 @@ import {useStore} from '../store';
 type LoanDataState = {
   loading: boolean;
   amount: string;
-  rate: string;
+  weeks: string;
 };
 
 const useSubmitLoan = () => {
@@ -28,15 +28,13 @@ const useSubmitLoan = () => {
   const {dataStore} = useStore();
   const submit = async () => {
     const amount = Number(state.amount);
-    const rate = Number(state.rate);
-    if (amount === 0 || isNaN(amount) || rate === 0 || isNaN(rate)) {
+    const weeks = Number(state.weeks);
+    if (amount === 0 || isNaN(amount) || weeks === 0 || isNaN(weeks)) {
       return;
     }
     setState({...state, loading: true});
-    await dataStore.submitLoan(amount, rate);
-    // setTimeout(() => setState({...state, loading: false}), 2000);
+    await dataStore.submitLoan(amount, weeks);
     await pop();
-    // setState({...state, loading: false});
   };
 
   return {submit, state, setState};
@@ -57,19 +55,20 @@ const SubmitLoan = () => {
           <Item stackedLabel>
             <Label>Amount</Label>
             <Input
+              maxLength={15}
               value={state.amount}
               onChangeText={(text) => {
                 setState({...state, amount: text.replace(/[^0-9]/g, '')});
               }}
             />
           </Item>
-          <Item stackedLabel>
-            <Label>Rate</Label>
+          <Item style={{marginTop: 16}} stackedLabel>
+            <Label>Period you want to repay (weeks)</Label>
             <Input
               maxLength={2}
-              value={state.rate}
+              value={state.weeks}
               onChangeText={(text) => {
-                setState({...state, rate: text.replace(/[^0-9]/g, '')});
+                setState({...state, weeks: text.replace(/[^0-9]/g, '')});
               }}
             />
           </Item>

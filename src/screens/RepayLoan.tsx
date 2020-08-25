@@ -1,4 +1,4 @@
-import React, {useEffect, useState, ComponentProps, PropsWithChildren} from 'react';
+import React, {useEffect, useState, PropsWithChildren} from 'react';
 import {
   Container,
   Content,
@@ -9,17 +9,17 @@ import {
   Input,
   Item,
   ListItem,
+  Title,
 } from 'native-base';
 import {useNavigation} from 'react-native-navigation-hooks';
 import {View} from 'react-native';
 
 import colors from '../colors';
-// import {useLoadingScreen} from './Loading';
 import {useStore} from '../store';
+import {RepaymentStatus} from '../types';
 
 type LoanDataState = {
   loading: boolean;
-  repay: string;
 };
 
 const useRepayLoan = (loanId: string) => {
@@ -29,17 +29,11 @@ const useRepayLoan = (loanId: string) => {
   const {dataStore} = useStore();
   const loan = dataStore.loans.get(loanId);
   const submit = async () => {
-    const repay = Number(state.repay);
-    if (repay === 0 || isNaN(repay)) {
-      return;
-    }
     setState({...state, loading: true});
     // await show();
-    console.log(state);
-    // await dataStore.submitLoan(amount, rate);
-    // setTimeout(() => setState({...state, loading: false}), 2000);
+    // console.log(state);
+    await dataStore.repayLoan(loanId);
     await pop();
-    // setState({...state, loading: false});
   };
 
   return {submit, state, setState, loan};
@@ -50,9 +44,13 @@ type RepayLoanProps = PropsWithChildren<{}> & {
 };
 
 const RepayLoan = ({loanId = ''}: RepayLoanProps) => {
-  const {submit, state, setState, loan} = useRepayLoan(loanId);
+  const {submit, state, loan} = useRepayLoan(loanId);
   const {mergeOptions} = useNavigation();
   const dateString = new Date(loan?.createDate as number).toLocaleDateString();
+  const currentWeek =
+    loan?.repaymentSchedule.findIndex(
+      (v) => v.status !== RepaymentStatus.Done,
+    ) || 0;
 
   useEffect(() => {
     mergeOptions({topBar: {title: {text: 'Repay loan'}}});
@@ -75,15 +73,9 @@ const RepayLoan = ({loanId = ''}: RepayLoanProps) => {
             <Text>{`Status: ${loan?.status}`}</Text>
           </Item>
           <View style={{height: 32}} />
-          <Item stackedLabel>
-            <Label>Please input your repayment</Label>
-            <Input
-              value={state.repay}
-              onChangeText={(text) => {
-                setState({...state, repay: text.replace(/[^0-9]/g, '')});
-              }}
-            />
-          </Item>
+          <Title>
+            <Text>{`You are repaying for week ${currentWeek + 1}`}</Text>
+          </Title>
         </Form>
         <Button
           full
@@ -91,7 +83,7 @@ const RepayLoan = ({loanId = ''}: RepayLoanProps) => {
           color={colors.primary}
           style={{marginTop: 32}}
           onPress={submit}>
-          <Text>{'Submit'}</Text>
+          <Text>{'Repay'}</Text>
         </Button>
       </Content>
     </Container>

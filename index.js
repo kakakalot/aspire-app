@@ -58,6 +58,7 @@ const startApp = () => {
             {
               component: {
                 name: 'LoanList',
+                options: {topBar: {title: {text: 'Loan list'}}},
               },
             },
           ],

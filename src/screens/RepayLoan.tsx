@@ -81,7 +81,7 @@ const RepayLoan = ({loanId = ''}: RepayLoanProps) => {
           full
           disabled={state.loading}
           color={colors.primary}
-          style={{marginTop: 32}}
+          style={{marginTop: 32, backgroundColor: colors.primary}}
           onPress={submit}>
           <Text>{'Repay'}</Text>
         </Button>

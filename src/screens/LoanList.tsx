@@ -127,6 +127,10 @@ const LoanList = () => {
 const textByStatus = (status: LoanStatus | undefined) => {
   switch (status) {
     case LoanStatus.Approved:
+      return {backgroundColor: colors.primary, color: colors.white};
+    case LoanStatus.Repaying:
+      return {backgroundColor: colors.primaryAccent, color: colors.white};
+    case LoanStatus.Finished:
       return {backgroundColor: colors.green, color: colors.white};
     default:
       return {};

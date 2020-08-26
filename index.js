@@ -27,7 +27,7 @@ const startApp = () => {
       },
       modalPresentationStyle: 'overCurrentContext',
       statusBar: {
-        backgroundColor: colors.blue,
+        backgroundColor: colors.primary,
       },
       layout: {
         direction: 'ltr',

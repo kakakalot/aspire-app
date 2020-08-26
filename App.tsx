@@ -12,7 +12,6 @@ import {Navigation} from 'react-native-navigation';
 import {NavigationProvider} from 'react-native-navigation-hooks';
 import React from 'react';
 
-// import App from './src';
 import {stores, StoreContext} from './src/store';
 import Loading from './src/screens/Loading';
 import LoanList from './src/screens/LoanList';
@@ -24,7 +23,6 @@ type ComponentScreenType = {
   [key: string]: React.ComponentType;
 };
 const ComponentScreens: ComponentScreenType = {
-  // AspireApp: App,
   Loading,
   LoanList,
   SubmitLoan,

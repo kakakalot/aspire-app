@@ -9,7 +9,6 @@ import {
   Text,
   List,
   ListItem,
-  H1,
   Content,
   Body,
   Right,

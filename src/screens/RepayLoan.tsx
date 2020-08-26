@@ -30,8 +30,6 @@ const useRepayLoan = (loanId: string) => {
   const loan = dataStore.loans.get(loanId);
   const submit = async () => {
     setState({...state, loading: true});
-    // await show();
-    // console.log(state);
     await dataStore.repayLoan(loanId);
     await pop();
   };

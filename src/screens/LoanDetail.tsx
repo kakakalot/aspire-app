@@ -15,13 +15,11 @@ import {
 } from 'native-base';
 import {DateTime} from 'luxon';
 import {useNavigation} from 'react-native-navigation-hooks';
-import {View} from 'react-native';
 
 import {DATE_TIME_FORMAT} from '../configs';
-import colors from '../colors';
-// import {useLoadingScreen} from './Loading';
+// import colors from '../colors';
 import {useStore} from '../store';
-import { RepaymentStatus } from '../types';
+import {RepaymentStatus} from '../types';
 
 type LoanDataState = {
   loading: boolean;

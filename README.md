@@ -14,6 +14,9 @@ yarn ios
 
 ```
 2. android
+
+create android/local.properties file with content
+`sdk.dir={YOUR_ANDROID_SDK_PATH}`
 ```
 yarn android
 ```

@@ -79,6 +79,7 @@ const LoanList = () => {
                   <Right>
                     <Button
                       small
+                      style={{backgroundColor: colors.primary}}
                       onPress={() =>
                         push({
                           component: {
@@ -94,6 +95,7 @@ const LoanList = () => {
                       loan?.status === LoanStatus.Repaying) && (
                       <Button
                         small
+                        style={{backgroundColor: colors.primary}}
                         onPress={() =>
                           push({
                             component: {

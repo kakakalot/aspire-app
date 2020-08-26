@@ -76,8 +76,7 @@ const SubmitLoan = () => {
         <Button
           full
           disabled={state.loading}
-          color={colors.primary}
-          style={{marginTop: 32}}
+          style={{marginTop: 32, backgroundColor: colors.primary}}
           onPress={submit}>
           <Text>{'Submit'}</Text>
         </Button>

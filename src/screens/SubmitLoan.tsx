@@ -57,6 +57,7 @@ const SubmitLoan = () => {
             <Input
               maxLength={15}
               value={state.amount}
+              keyboardType="numeric"
               onChangeText={(text) => {
                 setState({...state, amount: text.replace(/[^0-9]/g, '')});
               }}
@@ -67,6 +68,7 @@ const SubmitLoan = () => {
             <Input
               maxLength={2}
               value={state.weeks}
+              keyboardType="numeric"
               onChangeText={(text) => {
                 setState({...state, weeks: text.replace(/[^0-9]/g, '')});
               }}

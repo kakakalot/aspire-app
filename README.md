@@ -3,6 +3,9 @@
 1. Node version >= 10
 2. Pod version >= 1.7
 ### Run app
+```
+yarn install
+```
 1. iOS
 ```
 cd ios
@@ -13,7 +16,6 @@ yarn ios
 2. android
 ```
 yarn android
-
 ```
 ### Work flow
 - After launching app, we see `Loanlist` screen

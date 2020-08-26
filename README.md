@@ -21,4 +21,4 @@ yarn android
 - After launching app, we see `Loanlist` screen
 - Press `+` button at bottom to submit a loan.
 - After submmitting, wait for 10 second, then pull to refresh `Loanlist`, we will get approved loans.
-- in `Loanlist`, approved item will show `Repay` button.
+- Nn `Loanlist`, approved and repaying items will show `Repay` button.

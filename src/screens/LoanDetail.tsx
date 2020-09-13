@@ -1,25 +1,21 @@
-import React, {useEffect, useState, PropsWithChildren} from 'react';
+import React, {useEffect, PropsWithChildren} from 'react';
 import {
   Container,
   Content,
-  Button,
   Text,
   Form,
-  Label,
   List,
   Item,
   ListItem,
   Title,
-  Left,
   Body,
 } from 'native-base';
 import {DateTime} from 'luxon';
 import {useNavigation} from 'react-native-navigation-hooks';
 
-import {DATE_TIME_FORMAT} from '../configs';
-// import colors from '../colors';
-import {useStore} from '../store';
-import {RepaymentStatus} from '../types';
+import {DATE_TIME_FORMAT} from '@app/configs';
+import {useStore} from '@app/store';
+import {RepaymentStatus} from '@app/types';
 
 type LoanDataState = {
   loading: boolean;

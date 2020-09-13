@@ -17,10 +17,10 @@ import {
 import {useNavigation} from 'react-native-navigation-hooks';
 import {RefreshControl, ScrollView} from 'react-native';
 
-import {DATE_TIME_FORMAT} from '../configs';
-import colors from '../colors';
-import {useStore} from '../store';
-import {LoanStatus} from '../types';
+import {DATE_TIME_FORMAT} from '@app/configs';
+import colors from '@app/colors';
+import {useStore} from '@app/store';
+import {LoanStatus} from '@app/types';
 
 const useRefresh = () => {
   const {dataStore} = useStore();

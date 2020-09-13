@@ -11,10 +11,12 @@ import {
 } from 'native-base';
 import {useNavigation} from 'react-native-navigation-hooks';
 import {View} from 'react-native';
+// import {Navigation} from 'react-native-navigation';
 
-import colors from '../colors';
-// import {useLoadingScreen} from './Loading';
-import {useStore} from '../store';
+import colors from '@app/colors';
+import {useLoadingScreen} from '@app/screens/Loading';
+import {useStore} from '@app/store';
+import {wait} from '@app/utils';
 
 type LoanDataState = {
   loading: boolean;
@@ -23,7 +25,8 @@ type LoanDataState = {
 };
 
 const useSubmitLoan = () => {
-  const {pop} = useNavigation();
+  // const {pop} = useNavigation();
+  const {show, dismiss} = useLoadingScreen();
   const [state, setState] = useState<LoanDataState>({} as LoanDataState);
   const {dataStore} = useStore();
   const submit = async () => {
@@ -32,9 +35,14 @@ const useSubmitLoan = () => {
     if (amount === 0 || isNaN(amount) || weeks === 0 || isNaN(weeks)) {
       return;
     }
+
+    await show();
     setState({...state, loading: true});
     await dataStore.submitLoan(amount, weeks);
-    await pop();
+
+    wait(2 * 1000);
+    await dismiss();
+    // await pop();
   };
 
   return {submit, state, setState};

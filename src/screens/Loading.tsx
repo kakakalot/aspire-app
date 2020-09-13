@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
 export default Loading;
 
 export const useLoadingScreen = () => {
-  const {showOverlay, dismissOverlay} = useNavigation();
+  const {showOverlay, dismissOverlay} = useNavigation('Loading');
   const show = () =>
     showOverlay({
-      component: {id: 'Loading', name: 'Loading'},
+      component: {name: 'Loading'},
     });
   const dismiss = () => dismissOverlay();
 

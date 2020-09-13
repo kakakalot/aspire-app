@@ -14,8 +14,8 @@ import {
 import {useNavigation} from 'react-native-navigation-hooks';
 import {View} from 'react-native';
 
-import colors from '../colors';
-import {useStore} from '../store';
+import colors from '@app/colors';
+import {useStore} from '@app/store';
 import {RepaymentStatus} from '../types';
 
 type LoanDataState = {
